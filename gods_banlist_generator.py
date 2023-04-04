@@ -99,10 +99,10 @@ for card in cards:
 			additionalUnlimited.remove(cardName)
 			status = 3
 
-		if status != 3:
-			for image in card.get(CARD_IMAGES):
-				cardId = image.get(CARD_ID)
-				banlist.append(Card(cardName, cardId, status))
+		
+		for image in card.get(CARD_IMAGES):
+			cardId = image.get(CARD_ID)
+			banlist.append(Card(cardName, cardId, status))
 
 with open(banlistPath, 'w', encoding="utf-8") as lflist:
 
@@ -114,15 +114,7 @@ with open(banlistPath, 'w', encoding="utf-8") as lflist:
 	today = datetime.now()
 	lflist.write("#[GODS Format]\n")
 	lflist.write("!GODS Format %s\n"% today.strftime("%m.%Y"))
-	lflist.write("#forbidden\n")
+	lflist.write("$whitelist\n")
 	for card in banlist:
-		if (card.status == 0):
-			lflist.write("%d %d -- %s\n" % (card.cardId, card.status, card.cardName))
-	lflist.write("#limited\n")
-	for card in banlist:
-		if (card.status == 1):
-			lflist.write("%d %d -- %s\n" % (card.cardId, card.status, card.cardName))
-	lflist.write("#semi-limited\n")
-	for card in banlist:
-		if (card.status == 2):
-			lflist.write("%d %d -- %s\n" % (card.cardId, card.status, card.cardName))
+		lflist.write("%d %d -- %s\n" % (card.cardId, card.status, card.cardName))
+	
